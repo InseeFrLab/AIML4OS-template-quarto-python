@@ -1,48 +1,79 @@
+---
+title: "Quarto Basics"
+format:
+  html:
+    code-fold: true
+---
 
 
-# Introduction to `ggplot2`
+For a demonstration of a line plot on a polar axis, see @fig-polar.
 
-## What is `ggplot2`?
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
 
-`ggplot2` is an amazing package for data visualisation.
+import numpy as np
+import matplotlib.pyplot as plt
 
-## How to use `ggplot2`
-
-
-
-
-Here is a code snippet to produce a beautiful plot done with `ggplot2`.
-
-```{r}
-#| warning: false
-#| eval: false
-library(dplyr)
-library(ggplot2)
-
-iris <- iris
-
-ggplot(iris) +
-  geom_point(aes(x = Sepal.Length, y = Petal.Length, color = Species))
-
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
 ```
 
-And here is the amazing result.
+## Demo: Basic Pandas Table
 
-```{r}
-#| warning: false
-#| echo: false
-library(dplyr)
-library(ggplot2)
+This section demonstrates how to create and display a simple pandas DataFrame.
 
-iris <- iris
+```{python}
+#| label: tbl-pandas
+#| tbl-cap: "Simple pandas DataFrame"
 
-ggplot(iris) +
-  geom_point(aes(x = Sepal.Length, y = Petal.Length, color = Species))
+import pandas as pd
 
+data = {
+    "Name": ["Alice", "Bob", "Charlie"],
+    "Age": [25, 30, 35],
+    "City": ["Paris", "Dublin", "Berlin"]
+}
+
+df = pd.DataFrame(data)
+df
 ```
 
-# Conclusion
-
-Now you know everything on `ggplot2`.
+## A more sophisticated table
 
 
+```{python}
+from great_tables import GT, html
+from great_tables.data import sza
+import polars as pl
+import polars.selectors as cs
+
+sza_pivot = (
+    pl.from_pandas(sza)
+    .filter((pl.col("latitude") == "20") & (pl.col("tst") <= "1200"))
+    .select(pl.col("*").exclude("latitude"))
+    .drop_nulls()
+    .pivot(values="sza", index="month", on="tst", sort_columns=True)
+)
+
+(
+    GT(sza_pivot, rowname_col="month")
+    .data_color(
+        domain=[90, 0],
+        palette=["rebeccapurple", "white", "orange"],
+        na_color="white",
+    )
+    .tab_header(
+        title="Solar Zenith Angles from 05:30 to 12:00",
+        subtitle=html("Average monthly values at latitude of 20&deg;N."),
+    )
+    .sub_missing(missing_text="")
+)
+```

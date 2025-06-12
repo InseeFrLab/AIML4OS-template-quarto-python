@@ -6,26 +6,22 @@ project:
 
 website:
   page-navigation: true
-  title: "Introduction to `ggplot2`"
-  site-url: "https://github.com/InseeFrLab/AIML4OS-template-quarto-r"
-  repo-url: "https://github.com/InseeFrLab/AIML4OS-template-quarto-r"
+  title: "Educational resource template for Python"
+  site-url: "https://github.com/InseeFrLab/AIML4OS-template-quarto-python"
+  repo-url: "https://github.com/InseeFrLab/AIML4OS-template-quarto-python"
   repo-actions: [edit, source, issue]
-  # favicon: images/Template2.png
   sidebar:
-    logo: resources/profile/main3.png
-    style: "docked"
     search: true
     contents:
       - href: index.qmd
         text: Introduction
       - href: chapters/chapter1.qmd
-        text: Plot with ggplot2
+        text: A complete example
 
 format:
   html:
     theme:
       - cosmo
-      - brand
     css: styles.css
     toc: true
 
