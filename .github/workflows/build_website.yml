@@ -33,7 +33,7 @@ jobs:
 
       # Step 4: Render Quarto in uv virtual environment
       - name: Render
-        uses: uv run quarto render
+        run: uv run quarto render
        
       # Step 5: Publish website
       - name: Publish to GitHub Pages (and render)
