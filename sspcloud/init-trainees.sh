@@ -17,4 +17,9 @@ rm -rf temp
 echo $NOTEBOOK_DOWNLOAD_URL
 curl -L $NOTEBOOK_DOWNLOAD_URL -o "${WORK_DIR}/exercise.ipynb"
 
+# Ensure Quarto extension is up to date
 code-server --install-extension quarto.quarto
+
+# Additional configuration (system libs, etc.)
+# sudo apt-get update
+# sudo apt-get install ....
