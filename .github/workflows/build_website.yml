@@ -31,10 +31,14 @@ jobs:
       - name: Set up quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      # Step 4: Render Quarto in uv virtual environment
+      # Step 4: Render Quarto in uv virtual environment (HTML)
       - name: Render
         run: uv run quarto render
-       
+
+      # Step 4b: Render Quarto in uv virtual environment (HTML)
+      - name: Render in ipynb
+        run: uv run quarto render --to ipynb
+        
       # Step 5: Publish website
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
